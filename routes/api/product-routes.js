@@ -5,36 +5,63 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // get all products
 router.get('/', (req, res) => {
-  // find all products
-  // be sure to include its associated Category and Tag data
-
-  Product.findAll()
-    .then(searchResults => {
-      res.json(searchResults);
-    }).catch(err => {
-      // If an error is returned
-      res.status(404).json({message: "Sorry. Nothing was found."});
-    });
-
+  Product.findAll({
+    include: [
+      { 
+        model: Category,
+        attributes: ['id','category_name']
+      },
+      { 
+        model: Tag,
+        attributes: ['tag_name'],
+        through: ProductTag
+      }
+    ]
+  })
+  .then(searchResult => {
+    if (!searchResult) {
+      res.status(404).json({ message: 'Nothing found' });
+      return;
+    }
+    res.json(searchResult);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
-// get one product
-router.get('/:id', (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
 
+// get one product
+
+router.get('/:id', (req, res) => {
   Product.findOne({
     where: {
       id: req.params.id
-    }
+    },
+    include: [
+      { 
+        model: Category,
+        attributes: ['id','category_name']
+      },
+      { 
+        model: Tag,
+        attributes: ['tag_name'],
+        through: ProductTag
+      }
+    ]
   })
-    .then(searchResults => {
-      res.json(searchResults);
-    }).catch(err => {
-      // If an error is returned
-      res.status(404).json({message: "Sorry. Nothing was found."});
-    });
-
+  .then(searchResult => {
+    if (!searchResult) {
+      res.status(404).json({ message: 'Nothing found' });
+      return;
+    }
+    res.json(searchResult);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 // create new product
@@ -116,6 +143,7 @@ router.put('/:id', (req, res) => {
       res.status(400).json(err);
     });
 });
+
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
