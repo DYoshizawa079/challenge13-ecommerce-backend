@@ -9,7 +9,7 @@ Simulated E-Commerce back end. Comes with API routes that allow you to do the fo
 - Add a new product, tag or category in the database
 - Update a new product, tag or category in the database
 
-#### [Click Here](https://drive.google.com/file/d/1rkqERvJtqvAe1JraqsdkaW8JBdY-9Te6/view) to see a demonstration video of the app in use
+#### [Click Here](https://drive.google.com/file/d/1DgDTJZpiMzhtQOZ-SFGHXXT5E2KJZCkK/view?usp=sharing) to see a demonstration video of the app in use
 
 ## Installation
 
@@ -24,6 +24,7 @@ Install this in a node.js environemnt with the following node packages:
 1. To start, establish the connection to the server and its MySQL.
 2. Create the database by entering the following has been established, seed the database by entering "npm run seed" in the command line. This will seed the database.
 3. Then, enter "npm start" to start the app.
+4. The API routes shown below can be used to interact with the database.
 
 ### GET routes
 
@@ -45,6 +46,12 @@ Install this in a node.js environemnt with the following node packages:
 - Update a product by ID: /api/products/Product_ID
 - Update a tag by ID: /api/tags/Tag_ID
 - Update a category by ID: /api/categories/Category_ID
+
+### DELETE routes
+
+- Delete a product by ID: /api/products/Product_ID
+- Delete a tag by ID: /api/tags/Tag_ID
+- Delete a category by ID: /api/categories/Category_ID
 
 ## License
 
